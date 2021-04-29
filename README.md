@@ -1,5 +1,24 @@
 # vue-weather-app
 
-Learning to make a weather app in Vue JS using the Open Weather Map API. 
+## Project setup
+```
+npm install
+```
 
-Tutorial: https://www.youtube.com/watch?v=JLc-hWsPTUY
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
