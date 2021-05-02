@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 70 ? 'warm' : ''">
     <main>
       <div class="search-box">
         <input
@@ -19,7 +19,7 @@
         </div>
         <div class="weather-box">
           <div class="temp">{{ Math.round(weather.main.temp) }}&deg;f</div>
-          <div class="weather">{{ weather.weather[0].description }}</div>
+          <div class="weather">{{ weather.weather[0].main }}</div>
         </div>
       </div>
     </main>
@@ -91,10 +91,16 @@ body {
     rgba(9, 9, 121, 1) 35%,
     rgba(0, 212, 255, 1) 100%
   );
+}
+#app.warm {
   /* Warm Background */
-  /* background: rgb(253,29,29);
-  background-image: linear-gradient( 109.6deg,  rgba(255,174,0,1) 11.2%, rgba(255,0,0,1) 100.2% );
-  transition: 0.4s; */
+  background: rgb(253, 29, 29);
+  background-image: linear-gradient(
+    109.6deg,
+    rgba(255, 174, 0, 1) 11.2%,
+    rgba(255, 0, 0, 1) 100.2%
+  );
+  transition: 0.4s;
 }
 
 main {
