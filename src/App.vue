@@ -19,7 +19,7 @@
         </div>
         <div class="weather-box">
           <div class="temp">{{ Math.round(weather.main.temp) }}&deg;f</div>
-          <div class="weather">{{ weather.main }}</div>
+          <div class="weather">{{ weather.weather[0].description }}</div>
         </div>
       </div>
     </main>
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       api_key: process.env.VUE_APP_API_KEY,
-      url_base: "api.openweathermap.org/data/2.5/",
+      url_base: "//api.openweathermap.org/data/2.5/",
       query: "",
       weather: {},
       date: {
@@ -45,19 +45,14 @@ export default {
   methods: {
     fetchWeather(e) {
       if (e.key == "Enter") {
-        const reqURL = `${this.url_base}weather?q=${this.query}&units=imperial@appid=${this.api_key}`;
+        const reqURL = `${this.url_base}weather?q=${this.query}&units=imperial&appid=${this.api_key}`;
         fetch(reqURL)
           .then((res) => {
-            // Check if response is JSON
-            const contentType = res.headers.get("content-type");
-            if (!contentType || !contentType.includes("application/json")) {
-              throw new TypeError("Oops, we haven't got JSON!");
-            }
             return res.json();
           })
           .then((res) => {
             console.log(res);
-            if (!res.cod !== 200) {
+            if (res.cod !== 200) {
               throw Error(res);
             }
             return res;
