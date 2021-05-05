@@ -8,10 +8,10 @@
     "
   >
     <main>
-      <div class="search-box">
+      <div class="w-full pb-8">
         <input
           type="text"
-          class="search-bar"
+          class="block w-full p-3 text-xl appearance-none border-none outline-none bg-none shadow-md focus:shadow-lg rounded-bl-lg focus:rounded-bl-none	rounded-tr-lg focus:rounded-tr-none focus:rounded-tl-lg focus:rounded-br-lg text-gray-800 bg-white bg-opacity-50 focus:bg-opacity-75 transition-all"
           placeholder="Search..."
           v-model="query"
           @keypress="fetchWeather"
@@ -137,33 +137,4 @@ main {
   );
 }
 
-.search-box {
-  width: 100%;
-  margin-bottom: 30px;
-}
-
-.search-box .search-bar {
-  display: block;
-  width: 100%;
-  padding: 15px;
-
-  color: #313131;
-  font-size: 20px;
-
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0px 16px;
-  transition: 0.4s;
-}
-
-.search-box .search-bar:focus {
-  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 16px 0px;
-}
 </style>
