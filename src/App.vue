@@ -1,5 +1,12 @@
 <template>
-  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 70 ? 'warm' : ''">
+  <div
+    id="app"
+    :class="
+      typeof weather.main !== 'undefined' && weather.main.temp > 70
+        ? 'warm'
+        : ''
+    "
+  >
     <main>
       <div class="search-box">
         <input
@@ -10,14 +17,24 @@
           @keypress="fetchWeather"
         />
       </div>
+      <div
+        class="text-white text-center"
+        v-if="error !== ''"
+      >
+        Error. Could not retrieve weather.
+      </div>
       <div class="weather-wrap" v-if="typeof weather.main !== 'undefined'">
         <div class="text-white text-center">
-          <div class="text-4xl font-medium text-shadow-sm">{{ weather.name }}</div>
+          <div class="text-4xl font-medium text-shadow-sm">
+            {{ weather.name }}
+          </div>
           <div class="text-2xl font-light italic">
             {{ date.weekday }} {{ date.month }} {{ date.day }}
           </div>
         </div>
-        <div class="weather-box max-w-min mx-auto text-center my-2 p-7 bg-white bg-opacity-25 shadow-md hover:shadow-lg text-white rounded-lg text-shadow-sm">
+        <div
+          class="weather-box max-w-min mx-auto text-center my-2 p-7 bg-white bg-opacity-25 shadow-md hover:shadow-lg text-white rounded-lg text-shadow-sm"
+        >
           <div class="text-7xl">{{ Math.round(weather.main.temp) }}&deg;f</div>
           <div class="text-4xl italic">{{ weather.weather[0].main }}</div>
         </div>
@@ -35,6 +52,7 @@ export default {
       url_base: "//api.openweathermap.org/data/2.5/",
       query: "",
       weather: {},
+      error: "",
       date: {
         weekday: Date().split(" ")[0],
         month: Date().split(" ")[1],
@@ -44,27 +62,32 @@ export default {
   },
   methods: {
     fetchWeather(e) {
-      if (e.key == "Enter") {
+      if (e.key == 'Enter') {
         const reqURL = `${this.url_base}weather?q=${this.query}&units=imperial&appid=${this.api_key}`;
         fetch(reqURL)
           .then((res) => {
             return res.json();
           })
           .then((res) => {
-            console.log(res);
             if (res.cod !== 200) {
               throw Error(res);
             }
+            this.setError('');
             return res;
           })
           .then(this.setResults)
           .catch((err) => {
             console.error(err);
+            this.setResults('');
+            this.setError(err);
           });
       }
     },
     setResults(res) {
       this.weather = res;
+    },
+    setError(err) {
+      this.error = err;
     },
   },
 };
@@ -143,6 +166,4 @@ main {
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 16px 0px;
 }
-
-
 </style>
